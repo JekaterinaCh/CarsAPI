@@ -6,3 +6,4 @@ class CarsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cars
         fields = ('name', 'year')
+        db_table = 'Cars'

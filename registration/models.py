@@ -6,4 +6,5 @@ class Cars(models.Model):
     year = models.IntegerField()
 
     class Meta:
+        db_table = 'Cars'
         app_label = 'registration'
