@@ -5,5 +5,5 @@ from .models import Cars
 class CarsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cars
-        fields = ('name', 'year')
+        fields = ('id', 'name', 'year')
         db_table = 'Cars'
