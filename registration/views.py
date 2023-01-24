@@ -23,8 +23,17 @@ def cars_list(request):
 
 
 def get_cars(request):
-    cars = Cars.objects.all()
-    serializer = CarsSerializer(cars, many=True)
+    year_from = request.GET.get('year_from')
+    year_to = request.GET.get('year_to')
+    color = request.GET.get('color')
+    query = Cars.objects.all()
+    if year_from is not None:
+        query = query.filter(year__gte=year_from)
+    if year_to is not None:
+        query = query.filter(year__lte=year_to)
+    if color is not None:
+        query = query.filter(color=color)
+    serializer = CarsSerializer(query, many=True)
     return Response(serializer.data)
 
 
@@ -81,4 +90,4 @@ def _delete_car_response(car):
     car.delete()
     return Response({'message': 'Car was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
-# padaryti params pvz istraukti masina tik tas kurios eina po 2020 metu, ikomponuoti i jau parasytus APIs, pagrinde naudojama GET
+# pasigalvoti laukus front endui, kaip django atvaizduoti lista objektu, atvaizduoti duomenis lenteles pavidalu ir virst lenteles filtrai ir su select funkcija (drop down) visiem laukam
