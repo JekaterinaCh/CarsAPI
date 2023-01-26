@@ -1,0 +1,56 @@
+<!-- my_template.html -->
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+  crossorigin="anonymous"
+/>
+
+<div class="container">
+  <form class="form-inline my-2 my-lg-0" method="GET">
+    <label class="my-1 mr-2" for="year_from">Year From:</label>
+    <select class="custom-select mr-sm-2" id="year_from" name="year_from">
+      <option value=""></option>
+      {% for year in years %}
+      <option value="{{ year }}">{{ year }}</option>
+      {% endfor %}
+    </select>
+
+    <label class="my-1 mr-2" for="year_to">Year To:</label>
+    <select class="custom-select mr-sm-2" id="year_to" name="year_to">
+      <option value=""></option>
+      {% for year in years %}
+      <option value="{{ year }}">{{ year }}</option>
+      {% endfor %}
+    </select>
+    <label class="my-1 mr-2" for="color">Color:</label>
+    <select class="custom-select mr-sm-2" id="color" name="color">
+      <option value=""></option>
+      {% for color in colors %}
+      <option value="{{ color }}">{{ color }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+      Filter
+    </button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Year</th>
+        <th scope="col">Color</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for car in data %}
+      <tr>
+        <td>{{ car.name }}</td>
+        <td>{{ car.year }}</td>
+        <td>{{ car.color }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
