@@ -23,18 +23,20 @@ def cars_list(request):
 
 
 def get_cars(request):
+    years = Cars.objects.values_list('year', flat=True).distinct()
+    colors = Cars.objects.values_list('color', flat=True).distinct()
     year_from = request.GET.get('year_from')
     year_to = request.GET.get('year_to')
     color = request.GET.get('color')
     query = Cars.objects.all()
-    if year_from is not None:
+    if year_from is not None and year_from != '':
         query = query.filter(year__gte=year_from)
-    if year_to is not None:
+    if year_to is not None and year_to != '':
         query = query.filter(year__lte=year_to)
-    if color is not None:
+    if color is not None and color != '':
         query = query.filter(color=color)
-    serializer = CarsSerializer(query, many=True)
-    return Response(serializer.data)
+    data = CarsSerializer(query, many=True).data
+    return render(request, 'my_template.html', {'data': data, 'years': years, 'colors': colors})
 
 
 def create_car(request):
